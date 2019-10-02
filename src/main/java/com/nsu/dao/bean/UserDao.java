@@ -1,6 +1,6 @@
-package com.nsu.dao;
+package com.nsu.dao.bean;
 
-import com.nsu.domain.User;
+import com.nsu.domain.bean.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -19,7 +19,7 @@ public interface UserDao {
      * 注册账号
      * @param user
      */
-    @Insert( "INSERT INTO user (name,mailbox,phone_number,password) VALUES (#{name},#{mailbox},#{phone_number},#{password})" )
+    @Insert( "INSERT INTO User (n_name,p_number,email,pwd) VALUES (#{n_name},#{p_number},#{email},#{pwd})" )
     void addUser(User user);
 
     /**
@@ -27,7 +27,7 @@ public interface UserDao {
      * @param user
      * @return
      */
-    @Select( "select password from user where phone_number = #{phone_number}" )
+    @Select( "select pwd from User where p_number = #{p_number}" )
     String findPhonePassword(User user);
 
     /**
@@ -35,30 +35,30 @@ public interface UserDao {
      * @param user
      * @return
      */
-    @Select( "select password from user where mailbox = #{mailbox}" )
-    String findMailboxPassword(User user);
+    @Select( "select pwd from User where email = #{email}" )
+    String findEmailPassword(User user);
 
     /**
-     * 判断是否存在这个手机号
+     * 查找这个手机号
      * @param user
      * @return
      */
-    @Select( "select phone_number from user where phone_number = #{phone_number}" )
+    @Select( "select p_number from User where p_number = #{p_number}" )
     Object findPhoneNumber(User user);
 
     /**
-     * 判断是否存在这个邮箱
+     * 查找邮箱
      * @param user
      * @return
      */
-    @Select( "select mailbox from user where mailbox = #{mailbox}" )
-    Object findMailbox(User user);
+    @Select( "select email from User where email = #{email}" )
+    Object findEmail(User user);
 
     /**
      * 修改密码
      * @param user
      * @return
      */
-    @Update( "update user set password = #{password} where phone_number = #{phone_number}" )
+    @Update( "update User set pwd = #{pwd} where p_number = #{p_number}" )
     void updatePassword(User user);
 }

@@ -1,6 +1,6 @@
-package com.nsu.service;
+package com.nsu.service.bean;
 
-import com.nsu.domain.User;
+import com.nsu.domain.bean.User;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,7 +24,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    Boolean mailLogin(User user);
+    Boolean emailLogin(User user);
 
     /**
      * 注册
@@ -38,7 +38,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    Boolean findPhoneNumber(User user);
+    Boolean checkPhoneNumber(User user);
 
 
     /**
@@ -46,11 +46,11 @@ public interface UserService {
      * @param user
      * @return
      */
-    Boolean findMailbox(User user);
+    Boolean checkEmail(User user);
 
     /**
      * 手机号重置密码
      *
      */
-    void phoneFindPassword(User user);
+    void phoneUpdatePassword(User user);
 }

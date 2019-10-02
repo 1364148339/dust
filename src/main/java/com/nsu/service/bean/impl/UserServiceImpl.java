@@ -1,8 +1,8 @@
-package com.nsu.service.impl;
+package com.nsu.service.bean.impl;
 
-import com.nsu.dao.UserDao;
-import com.nsu.domain.User;
-import com.nsu.service.UserService;
+import com.nsu.dao.bean.UserDao;
+import com.nsu.domain.bean.User;
+import com.nsu.service.bean.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     public Boolean phoneLogin(User user) {
         String password = userDao.findPhonePassword( user );
         if(password==null) return false;
-        if(password.equals( user.getPassword() )) return true;
+        if(password.equals( user.getPwd() )) return true;
         return false;
     }
 
@@ -38,10 +38,10 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Boolean mailLogin(User user) {
-        String password = userDao.findMailboxPassword( user );
+    public Boolean emailLogin(User user) {
+        String password = userDao.findEmailPassword( user );
         if(password==null) return false;
-        if(password.equals( user.getPassword() )) return true;
+        if(password.equals( user.getPwd() )) return true;
         return false;
     }
 
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Boolean findPhoneNumber(User user)
+    public Boolean checkPhoneNumber(User user)
     {
         Object oj = userDao.findPhoneNumber( user );
         if(oj!=null) return true;
@@ -75,9 +75,9 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Boolean findMailbox(User user)
+    public Boolean checkEmail(User user)
     {
-        Object oj = userDao.findMailbox( user );
+        Object oj = userDao.findEmail( user );
         if(oj!=null) return true;
         else return false;
     }
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public void phoneFindPassword(User user) {
+    public void phoneUpdatePassword(User user) {
         userDao.updatePassword(user);
     }
 }

@@ -8,13 +8,19 @@ import org.springframework.stereotype.Repository;
 
 /**
  * 内容：
- *
+ * 用户：User
  * @author: wangqiao
  * @time: 2019/9/27
  */
 @Repository("userDao")
 public interface UserDao {
 
+    /**
+     * 查找所有用户
+     * @return
+     */
+    @Select( "select * from User" )
+    User findAll();
     /**
      * 注册账号
      * @param user

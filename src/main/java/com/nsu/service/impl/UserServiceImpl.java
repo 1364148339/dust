@@ -1,8 +1,8 @@
-package com.nsu.service.bean.impl;
+package com.nsu.service.impl;
 
 import com.nsu.dao.bean.UserDao;
 import com.nsu.domain.bean.User;
-import com.nsu.service.bean.UserService;
+import com.nsu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -51,9 +51,14 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public void register(User user)
+    public String register(User user)
     {
-       userDao.addUser( user );
+        //1.判断手机号是否存在
+        if(checkPhoneNumber( user )) return "-1";
+        //2.判断邮箱号是否存在
+        if(checkEmail( user )) return "-2";
+        userDao.addUser( user );
+        return "1";
     }
 
     /**

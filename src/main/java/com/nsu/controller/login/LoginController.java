@@ -1,7 +1,7 @@
 package com.nsu.controller.login;
 
 import com.nsu.domain.bean.User;
-import com.nsu.service.bean.UserService;
+import com.nsu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/login")
-public class Login {
+public class LoginController {
 
     @Autowired
     private UserService userService;
 
-       /**
+    /**
      * 注册
      * @param user
      * @return
@@ -29,8 +29,7 @@ public class Login {
     @RequestMapping("/register")
     public  @ResponseBody String register(@RequestBody User user)
     {
-        userService.register( user );
-        return "1";
+        return userService.register( user );
     }
 
     /**

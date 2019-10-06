@@ -1,4 +1,4 @@
-package com.nsu.service.bean;
+package com.nsu.service;
 
 import com.nsu.domain.bean.User;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    void register(User user);
+    String register(User user);
 
     /**
      * 判断是否存在这个手机号

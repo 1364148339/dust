@@ -45,4 +45,5 @@ public class CheckLoginController {
         if(userService.checkEmail( user )) return "1";
         else return "0";
     }
+
 }

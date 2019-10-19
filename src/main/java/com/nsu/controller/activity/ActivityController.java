@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * 内容：
- *
+ * 活动信息
  * @author: wangqiao
  * @time: 2019/10/4
  */

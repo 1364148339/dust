@@ -7,7 +7,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,11 @@ import java.util.UUID;
 @Controller
 public class hello {
 
+    public String hello()
+    {
+        return "success";
+    }
+
     @RequestMapping("/find")
     public String find()
     {
@@ -32,41 +39,28 @@ public class hello {
     }
 
     @RequestMapping("/fileUpLoad")//上传
-    public @ResponseBody String fileUpLoad(HttpServletRequest request) throws Exception
+    public @ResponseBody String fileUpLoad(HttpServletRequest request, @RequestParam("upload") MultipartFile[] upload) throws Exception
     {
         // 上传的位置 + 年/月
         String path = request.getSession().getServletContext().getRealPath( "/uploads/" + TimeUntile.getTime() );
-        // 判断，该路径是否存在
-        File file = new File( path );
-        if (!file.exists()) {
-            // 创建该文件夹
-            file.mkdirs();
-        }
-        //创建磁盘工厂类
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        ServletFileUpload fileUpload = new ServletFileUpload( factory );
-        //判断是否为空
-        if (fileUpload == null) return "0";
-        List<FileItem> list = fileUpload.parseRequest( request );
-        for (FileItem fileItem : list) {
-            // 判断文件项是普通字段，还是上传的文件
-            if (fileItem.isFormField()) {
+       //  创建File对象，一会向该路径下上传文件
+         File file = new File(path);
+        // 判断路径是否存在，如果不存在，创建该路径
+         if(!file.exists()) {
+           file.mkdirs();
+         }
+        for(MultipartFile multipartFile:upload)
+        {
+            //  获取到上传文件的名称
+            String filename = multipartFile.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+            //  把文件的名称唯一化
+            filename = uuid+"_"+filename;
+            //  上传文件
+            multipartFile.transferTo(new File(file,filename));
 
-            } else {
-                // 上传文件项
-
-                // 获取上传文件的名称
-                String filename = fileItem.getName();
-                // 把文件的名称设置唯一值，uuid
-                String uuid = UUID.randomUUID().toString().replace( "-", "" );
-                filename = uuid + "_" + filename;
-                // 上传文件
-                fileItem.write( new File( file, filename ) );
-                // 删除临时文件
-                fileItem.delete();
-            }
         }
-        return "1";
+          return "1";
     }
 
     @RequestMapping("/fileDownLoad")//下载

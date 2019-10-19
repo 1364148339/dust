@@ -1,9 +1,14 @@
 package com.nsu.controller.login;
 
+import com.nsu.controller.homepage.RotationController;
+import com.nsu.domain.bean.Rotation;
 import com.nsu.domain.bean.User;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.List;
+
 /**
  * 内容：
  *
@@ -44,8 +49,6 @@ public class LoginTest {
         user.setP_number( "17716474476" );
         user.setPwd( "123456" );
 
-        String res =  login.phoneLogin( user );
-        System.out.println( res );
 
     }
 
@@ -56,13 +59,15 @@ public class LoginTest {
     public void phoneUpdatePasswordTest()
     {
         ApplicationContext a = new ClassPathXmlApplicationContext( "applicationContext.xml" );
-        LoginController login = (LoginController) a.getBean( "loginController" );
+        RotationController rotationController = (RotationController) a.getBean( "rotationController" );
 
-        User user = new User();
-        user.setP_number( "17716474476" );
-        user.setPwd( "8888" );
 
-        String res =  login.phoneUpdatePassword( user );
-        System.out.println( res );
+        Rotation rotation = new Rotation();
+        rotation.setCity( "成都" );
+        List<Rotation> rotations=  rotationController.getRotation( rotation );
+        for(Rotation rotation1:rotations)
+        {
+            System.out.println( rotation1 );
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.nsu.controller.login;
 
+import com.nsu.controller.homepage.AuthenticationController;
 import com.nsu.domain.bean.User;
+import com.nsu.domain.bean.Volunteer;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,13 +21,11 @@ public class CheckTest {
     public void checkPhoneNumberTest()
     {
         ApplicationContext a = new ClassPathXmlApplicationContext( "applicationContext.xml" );
-        CheckLoginController check = (CheckLoginController)a.getBean( "checkActivity" );
+        AuthenticationController ab = (AuthenticationController)a.getBean( "authenticationController" );
 
-        User user = new User();
-        user.setP_number( "17777777776" );
-
-        String  res =check.checkPhoneNumber( user );
-        System.out.println( res );
+        Volunteer volunteer = new Volunteer();
+       // String  res = ab.userToExamineVolunteer( volunteer );
+        //System.out.println( res );
     }
 
     /**

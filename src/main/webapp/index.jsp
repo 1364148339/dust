@@ -15,12 +15,13 @@
 
 <%-- 文件的上传测试--%>
 
-
  <h3>Springmvc文件上传</h3>
 
  <form action="/test/fileUpLoad" method="post" enctype="multipart/form-data">
-     选择文件：<input type="file" name="upload" /><br/>
-     <input type="submit" value="上传" />
+     选择文件：<input type="file" name="uploads" /><br/>
+     选择文件：<input type="file" name="uploads" /><br/>
+     选择文件：<input type="file" name="uploads" /><br/>
+     <input type="submit" value="上传"/>
  </form>
 
  <form action="/test/fileDownLoad" method="post" enctype="multipart/form-data">

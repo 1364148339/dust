@@ -19,7 +19,8 @@
         <property name="prefix" value="/WEB-INF/pages/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
-
+    <!-- 设置静态资源不过滤 -->
+    <mvc:resources location="/upload/" mapping="/upload/**" />
     <!--配置文件解析器对象-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 <!--    设置允许上传的最大文件大小，以字节为单位计算。当设为-1时表示无限制，默认是-1-->
@@ -27,7 +28,8 @@
 <!--   defaultEncoding:表示用来解析request请求的默认编码格式，当没有指定的时候根据Servlet规范会使用默认值 ISO-8859-1 。
                        当request自己指明了它的编码格式的时候就会忽略这里指定的defaultEncoding。-->
 <!--   maxInMemorySize:设置在文件上传时允许写到内存中的最大值，以字节为单位计算，默认是1024。-->
-
+        <property name="maxInMemorySize" value="4096"/>
+        <property name="defaultEncoding" value="utf-8"/>
     </bean>
     <!-- 配置spring开启注解mvc的支持-->
     <mvc:annotation-driven/>

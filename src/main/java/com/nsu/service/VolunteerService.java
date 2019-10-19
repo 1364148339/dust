@@ -1,8 +1,8 @@
 package com.nsu.service;
 
+import com.nsu.domain.bean.Relation;
+import com.nsu.domain.bean.User;
 import com.nsu.domain.bean.Volunteer;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +20,6 @@ public interface VolunteerService {
      * 查找所有志愿者
      * @return
      */
-    @Select( "select * from Volunteer" )
     List<Volunteer> findAll();
 
     /**
@@ -28,15 +27,24 @@ public interface VolunteerService {
      * @param volunteer 志愿者编号
      * @return
      */
-    @Select( "select * from Volunteer where v_id = #{v_id}" )
     Volunteer findById(Volunteer volunteer);
 
+    /**
+     * 通过用户id 查询 志愿者id
+     * @param user
+     * @return
+     */
+    Volunteer findByUserId(User user);
 
     /**
      * 志愿者认证
      * @param volunteer 志愿者全部信息
      */
-    @Insert( "INSERT INTO Wait_volunteer (id,name,sex,age,address,rid_photo,lid_photo,ff_photo,province,city)" +
-            " VALUES (#{id},#{name},#{sex},#{age},#{address},#{rid_photo},#{lid_photo},#{ff_photo},#{province},#{city}" )
-    void authentication(Volunteer volunteer);
+    void addAuthentication(Volunteer volunteer);
+
+    /**
+     * 添加结对
+     *
+     */
+    void addPair(Relation relation);
 }

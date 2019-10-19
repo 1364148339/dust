@@ -17,7 +17,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    Boolean phoneLogin(User user);
+    User phoneLogin(User user);
 
     /**
      * 通过邮箱登陆
@@ -52,5 +52,29 @@ public interface UserService {
      * 手机号重置密码
      *
      */
-    void phoneUpdatePassword(User user);
+    String phoneUpdatePassword(User user);
+
+    /**
+     *通过id获取user信息
+     *
+     */
+    User findById(User user);
+
+    /**
+     * 更换头像
+     * @param user
+     */
+    void updatePhoto(User user);
+
+    /**
+     * 修改昵称
+     * @param user
+     */
+    void updateName(User user);
+
+    /**
+     * 修改签名
+     * @param user
+     */
+    void updateAutograph(User user);
 }

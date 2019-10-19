@@ -16,9 +16,35 @@ public class Luser implements Serializable {
     private String name;      //姓名
     private String sex;       //性别
     private Integer age;      //年龄
+    private String province;//省
+    private String city; //市
     private String address;   //地址
     private String rid_photo; //身份证照片正面url
     private String lid_photo; //身份证照片反面url
+    private String area;//区
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public Long getL_id() {
         return l_id;

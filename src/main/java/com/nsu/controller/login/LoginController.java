@@ -37,10 +37,9 @@ public class LoginController {
      *
      */
     @RequestMapping("/phoneLogin")
-    public  @ResponseBody String phoneLogin(@RequestBody User user)
+    public  @ResponseBody User phoneLogin(@RequestBody User user)
     {
-        if(userService.phoneLogin( user )) return "1";
-        else return "0";
+        return userService.phoneLogin( user );
     }
 
     /**
@@ -50,8 +49,7 @@ public class LoginController {
     @RequestMapping("/phoneFindPassword")
     public @ResponseBody String phoneUpdatePassword(@RequestBody User user)
     {
-        userService.phoneUpdatePassword( user );
-        return "1";
+        return userService.phoneUpdatePassword( user );
     }
 
 

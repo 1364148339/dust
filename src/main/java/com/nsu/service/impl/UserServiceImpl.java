@@ -25,11 +25,9 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Boolean phoneLogin(User user) {
-        String password = userDao.findPhonePassword( user );
-        if(password==null) return false;
-        if(password.equals( user.getPwd() )) return true;
-        return false;
+    public User phoneLogin(User user) {
+
+       return userDao.findPhonePassword( user );
     }
 
     /**
@@ -93,7 +91,48 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public void phoneUpdatePassword(User user) {
-        userDao.updatePassword(user);
+    public String phoneUpdatePassword(User user) {
+        //判断是否有这手机号
+        if(!checkPhoneNumber( user )) return "0";
+        userDao.updatePassword(user); return "1";
+    }
+
+    /**
+     * 通过id 获取user消息
+     * @param user
+     * @return
+     */
+    @Override
+    public User findById(User user) {
+        User u = userDao.findById( user );
+        return u;
+    }
+
+
+    /**
+     * 更换头像
+     * @param user
+     */
+    @Override
+    public void updatePhoto(User user) {
+        userDao.updatePhoto( user );
+    }
+
+    /**
+     * 更换昵称
+     * @param user
+     */
+    @Override
+    public void updateName(User user) {
+        userDao.updateName( user );
+    }
+
+    /**
+     * 更换签名
+     * @param user
+     */
+    @Override
+    public void updateAutograph(User user) {
+       userDao.updateAutograph( user );
     }
 }

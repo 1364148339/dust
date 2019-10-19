@@ -16,6 +16,15 @@ public class User implements Serializable {
     private String pwd;  //密码
     private String h_photo; //头像图片
     private String power; //权限
+    private String autograph;//签名
+
+    public String getAutograph() {
+        return autograph;
+    }
+
+    public void setAutograph(String autograph) {
+        this.autograph = autograph;
+    }
 
     public Long getId() {
         return id;
@@ -83,6 +92,7 @@ public class User implements Serializable {
                 ", pwd='" + pwd + '\'' +
                 ", h_photo='" + h_photo + '\'' +
                 ", power='" + power + '\'' +
+                ", autograph='" + autograph + '\'' +
                 '}';
     }
 }

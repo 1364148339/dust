@@ -59,7 +59,7 @@
 
     <!--配置aop切面-->
     <aop:config>
-        <aop:pointcut id="pit" expression="execution(* com.nsu.service.bean.impl.*.*(..))"/>
+        <aop:pointcut id="pit" expression="execution(* com.nsu.service.impl.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pit"/>
     </aop:config>
 </beans>

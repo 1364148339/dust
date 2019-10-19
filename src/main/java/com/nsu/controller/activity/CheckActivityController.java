@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 内容：
- *
+ * 志愿者检查
  * @author: wangqiao
  * @time: 2019/10/3
  */

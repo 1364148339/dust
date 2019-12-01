@@ -11,7 +11,7 @@ import java.util.Set;
  * @author: wangqiao
  * @time: 2019/10/17
  */
-public class LuserUntil {
+public class LuserUtil {
 
     //解析上传的map
     public static Luser analysisMap(Map<String,String> map)

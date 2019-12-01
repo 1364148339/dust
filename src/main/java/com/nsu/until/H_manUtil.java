@@ -12,19 +12,8 @@ import java.util.Set;
  * @author: wangqiao
  * @time: 2019/10/16
  */
-public class H_manUntil {
+public class H_manUtil {
 
-//得到age
-//    public static int getAge(String b_day)
-//    {
-//        //年龄 = 现在时间 - 生日时间
-//        String nowTime = TimeUntile.getTimeYear();//现在时间
-//        String bTime = b_day.split( "-" )[0]; //生日时间
-//        int now = Integer.parseInt( nowTime );//现在时间
-//        int b = Integer.parseInt( bTime );//生日时间
-//        return now-b;
-//
-//    }
     //解析map
     public static Object[] analysisMap(Map<String,String> map)
     {
@@ -78,7 +67,11 @@ public class H_manUntil {
             {
                 h_man.setArea( value );
             }
-            else
+            else if("title".equals( key ))
+            {
+                h_man.setTitle( value );
+            }
+            else if("id".equals( key ))
             {
                 user.setId( new Long( value ) );
             }
@@ -86,8 +79,6 @@ public class H_manUntil {
         }
         //受助对象
         h_man.setH_type( "儿童" );
-        //审核状态
-        h_man.setState( "待审核" );
         return ojb;
     }
 

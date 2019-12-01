@@ -22,7 +22,7 @@ public class Volunteer implements Serializable {
     private String lid_photo;     //身份证照片反面url
     private String ff_photo;      //正面照：ff_photo
     private Long o_id;            //组织编号：o_id
-    private String area;//区
+    private String area;          //区
 
     public String getArea() {
         return area;

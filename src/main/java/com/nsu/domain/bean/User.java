@@ -17,6 +17,15 @@ public class User implements Serializable {
     private String h_photo; //头像图片
     private String power; //权限
     private String autograph;//签名
+    private Integer integral;//积分
+
+    public Integer getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
+    }
 
     public String getAutograph() {
         return autograph;

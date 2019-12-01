@@ -1,10 +1,10 @@
 package com.nsu.dao.bean;
 
 import com.nsu.domain.bean.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 内容：
@@ -20,7 +20,14 @@ public interface UserDao {
      * @return
      */
     @Select( "select * from User" )
-    User findAll();
+    List<User> findAll();
+
+    /**
+     * 模糊搜索
+     * @return
+     */
+    @Select( "select * from User where id like #{key} or n_name like #{key} or p_number like #{key}" )
+    List<User> searchAll(@Param( "key" ) String key);
 
     /**
      * 通过id  查询user信息
@@ -31,11 +38,11 @@ public interface UserDao {
     User findById(User user);
 
     /**
-     * 根据手机号 查找密码
+     * 根据手机号 密码来比对
      * @param user
      * @return
      */
-    @Select( "select * from User where p_number = #{p_number}" )
+    @Select( "select * from User where p_number = #{p_number} and pwd=#{pwd}")
     User findPhonePassword(User user);
 
     /**
@@ -99,4 +106,19 @@ public interface UserDao {
     @Update( "update User set h_photo = #{h_photo} where id = #{id}" )
     void updatePhoto(User user);
 
+    /**
+     * 增加积分
+     * @param user
+     */
+    @Update( "update User set integral = integral+${integral} where id = #{user.id}" )
+    void updateIntegral(@Param( "user" ) User user, @Param( "integral" ) int integral);
+
+    @Delete("<script>" +
+            "delete from User where id in" +
+            "<foreach collection='list' open='(' item='id' separator=',' close=')'>#{id}</foreach>" +
+            "</script>")
+    void delete(@Param( "list" ) List<Integer> ids);
+
+    @Update( "update User set n_name = #{n_name},p_number=#{p_number},pwd=#{pwd},autograph=#{autograph},email=#{email} where id = #{id}" )
+    void edit(User user);
 }

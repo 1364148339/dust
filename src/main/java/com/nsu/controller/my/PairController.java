@@ -1,13 +1,13 @@
 package com.nsu.controller.my;
 
 import com.nsu.domain.bean.H_man;
-import com.nsu.domain.bean.Relation;
 import com.nsu.domain.bean.User;
 import com.nsu.domain.bean.Volunteer;
 import com.nsu.service.H_manService;
 import com.nsu.service.VolunteerService;
-import com.nsu.until.H_manUntil;
-import com.nsu.until.TimeUntile;
+import com.nsu.until.H_manUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,75 +29,58 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/my")
+@Api(tags="PairController",description="我的结对")
 public class PairController {
 
     @Autowired
     private VolunteerService volunteerService;
-
     @Autowired
     private H_manService h_manService;
-
     /**
-     * 通过用户id-->得到结对的所有儿童信息
+     * 通过用户id-->得到结对的所有受助者信息
      * @param user
      * @return
      */
+    @ApiOperation(httpMethod="POST",value="接口标题:得到结对的所有受助者信息",notes="接口说明：需要User的id")
     @RequestMapping("/getPair")
     public @ResponseBody List<H_man> getPair(@RequestBody User user)
     {
-       return h_manService.findById( user );
+        return h_manService.findById( user );
     }
-
 
     /**
      * 填加结对
      * @param request
-     * @param upload  受助者照片
+     * @param uploads  受助者照片+文章照片
      * @return
      * @throws Exception
      */
+    @ApiOperation(httpMethod="POST",value="接口标题:填加结对",notes="接口说明：受助者照片+文章照片")
     @RequestMapping("/addPair")
-    public @ResponseBody String upload_Article(HttpServletRequest request, @RequestParam MultipartFile upload ,@RequestParam Map<String,String> map)throws Exception
+    public @ResponseBody String upload_Article(HttpServletRequest request, @RequestParam MultipartFile[] uploads ,@RequestParam Map<String,String> map)
     {
+        if(uploads==null || uploads.length<1) return "0";
+        if(map==null || map.size()<1) return "0";
         //解析map
-        Object[] objects = H_manUntil.analysisMap( map );
+        Object[] objects = H_manUtil.analysisMap( map );
         H_man h_man = (H_man) objects[0];
+        //通过用户id 查找志愿者
         Volunteer volunteer = volunteerService.findByUserId( (User) objects[1] );
-        //查询数据库 得到受助对象的数量
-        h_man.setH_id( h_manService.findNum()+1 );
+        if(volunteer==null || volunteer.getV_id()==null) return "0";
+        // 上传的位置 受助对象+[0-9]+志愿者id
+        //根据志愿者id  分出10个包来 分别对10取余
+        Long l = volunteer.getV_id()%10;
+        String path = request.getSession().getServletContext().getRealPath( "/upload/Helper/"+l.toString()+"/"+volunteer.getV_id().toString());
 
-        // 上传的位置 受助对象
-        String path = request.getSession().getServletContext().getRealPath( "/upload/Helper");
-        //  创建File对象，一会向该路径下上传文件
-        File file = new File(path);
-        // 判断路径是否存在，如果不存在，创建该路径
-        if(!file.exists()) {
-            file.mkdirs();
+        try{
+            //添加结对
+            if(volunteerService.addPair( h_man,volunteer, uploads,path)==false) return "0";
+
+
+        }catch (IOException e)
+        {
+            return "0";
         }
-        String str = "http://45.40.206.100:8080/test/upload/Helper/";
-        String url = new String(  );
-        //  上传文件的名称
-        String filename = h_man.getH_id().toString()+".jpg";
-        //  上传文件
-        upload.transferTo(new File(file,filename));
-        //加上str 以空格为分隔符
-        filename = str+filename;
-        //合并
-        url=url+filename;
-        h_man.setPhoto( url );
-
-        //添加
-        h_manService.addH_man( h_man );
-        //添加结对
-        Relation relation = new Relation();
-        //志愿者编号
-        relation.setV_id( volunteer.getV_id() );
-        //受助者编号
-        relation.setH_id( h_man.getH_id() );
-        //上传时间
-        relation.setUp_time( TimeUntile.getTime() );
-        //添加结对
-        volunteerService.addPair( relation );
         return "1";
     }
 }

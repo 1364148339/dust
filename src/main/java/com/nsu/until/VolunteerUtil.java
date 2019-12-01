@@ -11,7 +11,7 @@ import java.util.Set;
  * @author: wangqiao
  * @time: 2019/10/17
  */
-public class VolunteerUntil {
+public class VolunteerUtil {
 
 
     //解析上传的map

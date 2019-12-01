@@ -14,6 +14,7 @@ import java.util.List;
  */
 @Repository("rotationDao")
 public interface RotationDao {
+
     //获取所有的轮播图+城市筛选
     @Select( "select * from Rotation where city = #{city}" )
     List<Rotation> findAll(Rotation rotation);

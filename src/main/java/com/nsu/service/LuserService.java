@@ -1,7 +1,11 @@
 package com.nsu.service;
 
 
+import com.nsu.domain.bean.Luser;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * 内容：
@@ -14,8 +18,10 @@ public interface LuserService {
 
     /**
      * 爱心人士认证
-     * 向审核表里丢数据
-     * @param luser
+     * @param luser 爱人人士
+     * @param uploads 图片组
+     * @param path 上传路径
+     * @throws IOException
      */
-    void addAuthentication(com.nsu.domain.bean.Luser luser);
+    Boolean addAuthentication(Luser luser, MultipartFile[] uploads,String path) throws IOException;
 }

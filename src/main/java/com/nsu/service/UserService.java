@@ -3,6 +3,8 @@ package com.nsu.service;
 import com.nsu.domain.bean.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 内容：
  *
@@ -12,6 +14,18 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public interface UserService {
 
+    /**
+     * 查询所有
+     * @return
+     */
+    List<User> findAll();
+
+    /**
+     * 模糊查询
+     * @param key
+     * @return
+     */
+    List<User> searchAll(String key);
     /**
      * 通过手机号进行登陆
      * @param user
@@ -77,4 +91,22 @@ public interface UserService {
      * @param user
      */
     void updateAutograph(User user);
+
+    /**
+     * 增加积分
+     * @param user
+     */
+    void updateIntegral(User user, int integral);
+
+    /**
+     * 删除 ids
+     * @param ids
+     */
+    void delete(List<Integer> ids);
+
+    /**
+     * 修改
+     * @param user
+     */
+    void edit(User user);
 }

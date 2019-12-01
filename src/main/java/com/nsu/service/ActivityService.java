@@ -1,6 +1,8 @@
 package com.nsu.service;
 
-import com.nsu.domain.Activity;
+import com.nsu.domain.Activity_Volunteer;
+import com.nsu.domain.InfoActivity;
+import com.nsu.domain.bean.Activity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +21,26 @@ public interface ActivityService {
      * @param activity
      * @return
      */
-    Activity findById(Activity activity);
+    InfoActivity findById(Activity activity);
 
     /**
      * 查找全部活动
      * @return
      */
     List<Activity> findAll();
+
+    /**
+     * 查找同城活动
+     */
+    List<Activity> findByCity(Activity activity);
+
+    /**
+     * 查找该类型的活动
+     */
+    List<Activity> findByType(Activity activity);
+
+    /**
+     *参加活动
+     */
+    void joinActivity(Activity_Volunteer activity_volunteer);
 }

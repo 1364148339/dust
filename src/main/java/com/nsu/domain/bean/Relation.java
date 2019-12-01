@@ -10,12 +10,27 @@ public class Relation {
 
     private Long r_id; //结对编号
     private Long v_id;  //志愿者编号
-    private Long t_id;  //审核人编号  待审核 审核人id为null
+    private Long o_id;  //组织id
     private String up_time; //上传时间
     private Long h_id;  //受助人id
     private String handle_time;//处理时间
+    private String state;//审核状态
 
+    public String getState() {
+        return state;
+    }
 
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Long getO_id() {
+        return o_id;
+    }
+
+    public void setO_id(Long o_id) {
+        this.o_id = o_id;
+    }
     public Long getR_id() {
         return r_id;
     }
@@ -30,14 +45,6 @@ public class Relation {
 
     public void setV_id(Long v_id) {
         this.v_id = v_id;
-    }
-
-    public Long getT_id() {
-        return t_id;
-    }
-
-    public void setT_id(Long t_id) {
-        this.t_id = t_id;
     }
 
     public String getUp_time() {
@@ -69,7 +76,7 @@ public class Relation {
         return "Relation{" +
                 "r_id=" + r_id +
                 ", v_id=" + v_id +
-                ", t_id=" + t_id +
+                ", o_id=" + o_id +
                 ", up_time='" + up_time + '\'' +
                 ", h_id=" + h_id +
                 ", handle_time='" + handle_time + '\'' +

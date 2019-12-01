@@ -20,8 +20,28 @@ public class H_man {
     private String city; //市
     private String address; //地址
     private String introduce; //简介
-    private String state;//审核状态
     private String area;//区
+    private String title;//标题
+    private String path;//文章第一张图的网络路径
+    //文章内容--存文章内容地址--服务器上的路径
+    //等要请求文章的时候--将html里的东西读取处理当作String存入该属性
+
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getArea() {
         return area;
@@ -47,13 +67,6 @@ public class H_man {
         this.city = city;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
 
     public Long getH_id() {
         return h_id;
@@ -148,7 +161,6 @@ public class H_man {
                 ", h_type='" + h_type + '\'' +
                 ", address='" + address + '\'' +
                 ", introduce='" + introduce + '\'' +
-                ", state='" + state + '\'' +
                 '}';
     }
 }

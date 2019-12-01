@@ -1,10 +1,7 @@
 package com.nsu.controller;
 
 
-import com.nsu.until.TimeUntile;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import com.nsu.until.TimeUtile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -27,22 +23,17 @@ import java.util.UUID;
 @Controller
 public class hello {
 
-    public String hello()
-    {
-        return "success";
-    }
-
     @RequestMapping("/find")
-    public String find()
+    public String admin()
     {
-        return "success";
+        return "admin/home";
     }
 
     @RequestMapping("/fileUpLoad")//上传
     public @ResponseBody String fileUpLoad(HttpServletRequest request, @RequestParam("upload") MultipartFile[] upload) throws Exception
     {
         // 上传的位置 + 年/月
-        String path = request.getSession().getServletContext().getRealPath( "/uploads/" + TimeUntile.getTime() );
+        String path = request.getSession().getServletContext().getRealPath( "/uploads/" + TimeUtile.getTime() );
        //  创建File对象，一会向该路径下上传文件
          File file = new File(path);
         // 判断路径是否存在，如果不存在，创建该路径
@@ -68,7 +59,7 @@ public class hello {
     {
         InputStream inputStream = null;
         //得到图片路径
-        String path = request.getSession().getServletContext().getRealPath( "/uploads/" + TimeUntile.getTime() ) + "/1.jpg";
+        String path = request.getSession().getServletContext().getRealPath( "/uploads/" + TimeUtile.getTime() ) + "/1.jpg";
         //得到文件对象
         File file = new File( path );
         try {

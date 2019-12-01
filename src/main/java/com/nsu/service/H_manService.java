@@ -19,15 +19,22 @@ public interface H_manService {
      */
     List<H_man> findById(User user);
 
-    /**
-     * 查询受助者数量
-     * @return
-     */
-    Long findNum();
 
     /**
      * 添加受助者
      * @param h_man
      */
     void addH_man(H_man h_man);
+
+    /**
+     * 每次拿15条数据出来
+     * @return
+     */
+    List<H_man> findBySection( Long x, Long y);
+
+    /**
+     * 获取位置 省+市+区
+     * @return
+     */
+    List<String> findByAllPosition();
 }

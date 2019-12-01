@@ -11,7 +11,7 @@ import java.util.Set;
  * @author: wangqiao
  * @time: 2019/10/19
  */
-public class WelfareUnitl {
+public class WelfareUitl {
     //解析上传的map
     public static Welfare analysisMap(Map<String,String> map)
     {

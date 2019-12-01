@@ -1,7 +1,9 @@
 package com.nsu.service;
 
 
+import com.nsu.domain.bean.Activity;
 import com.nsu.domain.Activity_Volunteer;
+import com.nsu.domain.bean.Volunteer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,10 +25,10 @@ public interface Activity_VolunteerService {
 
     /**
      * 通过志愿者id  查找活动id
-     * @param activity_volunteer
+     * @param volunteer
      * @return
      */
-    List<Activity_Volunteer> findByV_id(Activity_Volunteer activity_volunteer);
+    List<Activity> findByV_id(Volunteer volunteer);
 
 
     /**

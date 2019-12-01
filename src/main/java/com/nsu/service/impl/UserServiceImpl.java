@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 内容：
  *
@@ -19,6 +22,20 @@ public class UserServiceImpl implements UserService {
     @Autowired@Qualifier("userDao")
     private UserDao userDao;
 
+    @Override
+    public List<User> findAll() {
+        List<User> list = userDao.findAll();
+        if(list.size()<=0) return new ArrayList<>(  );
+        return list;
+    }
+
+    @Override
+    public List<User> searchAll(String key) {
+        List<User> list = userDao.searchAll( "%"+key+"%" );
+        if(list==null || list.size()<=0) return new ArrayList<>(  );
+        return list;
+    }
+
     /**
      * 通过手机号进行登陆---手机号，密码
      * @param user
@@ -26,8 +43,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User phoneLogin(User user) {
-
-       return userDao.findPhonePassword( user );
+       User u = userDao.findPhonePassword( user );
+       if(u==null)
+       {
+           return new User();
+       }
+       return u;
     }
 
     /**
@@ -134,5 +155,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateAutograph(User user) {
        userDao.updateAutograph( user );
+    }
+
+    /**
+     * 增加积分
+     * @param user
+     * @param integral
+     */
+    @Override
+    public void updateIntegral(User user, int integral) {
+        userDao.updateIntegral( user,integral );
+    }
+
+    @Override
+    public void delete(List<Integer> ids) {
+        userDao.delete( ids );
+    }
+
+    @Override
+    public void edit(User user) {
+        userDao.edit( user );
     }
 }
